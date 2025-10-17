@@ -1,34 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-    <title>test_4k_georef.tif</title>
-
-    <!-- Leaflet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet-src.min.js"></script>
-
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>IPv4 /24 CIDR full sky</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/zoomist@2/zoomist.css"/>
     <style>
-        body { margin:0; padding:0; }
-        body, table, tr, td, th, div, h1, h2, input { font-family: "Calibri", "Ubuntu", serif; font-size: 11pt; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
+        @media (prefers-color-scheme: dark) {
+            body {
+                --zoomist-slider-bg-color: rgba(12, 12, 12, 0.8);
+                --zoomist-slider-track-color: #444;
+                --zoomist-slider-track-color-hover: #666;
+                --zoomist-slider-button-color: #ccc;
+                --zoomist-zoomer-button-color: rgba(12, 12, 12, 0.9);
+                --zoomist-zoomer-button-color-hover: rgba(24, 24, 24, 0.9);
+                --zoomist-zoomer-button-color-disabled: rgba(12, 12, 12, 0.8);
+                --zoomist-zoomer-icon-color: #ccc;
+                --zoomist-zoomer-icon-color-hover: #eee;
+                --zoomist-zoomer-icon-color-disabled: #666;
+                --body-background-image: linear-gradient(
+                        to bottom right,
+                        #333,
+                        #191919
+                );
+            }
+        }
 
-    </head>
-    <body>
-        <div id="map"></div>
-        <script>
-        var lyr = L.tileLayer('tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1, attribution: ""});
-        var map = L.map('map', {
-            center: [-0.018397495754205715, 0.0183974970187678],
-            zoom: 17,
-            minZoom: 13,
-            maxZoom: 17,
-            layers: [lyr]
-        });
-        L.control.layers({"Fractal Layer": lyr}, {collapsed: true}).addTo(map);
-        map.fitBounds([[-0.03679499150841143, 0.0367949940375356], [0.0, 0.0]]);
-        </script>
-    </body>
+        @media (prefers-color-scheme: light) {
+            body {
+                --body-background-image: linear-gradient(to bottom right, #fff, #ccc);
+            }
+        }
+
+        #app {
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: var(--body-background-image);
+        }
+
+        .cat-zoomist {
+            width: 100%;
+            max-width: 100dvh;
+            /*max-width: 540px;*/
+            /*max-height: 100dvh;*/
+            /*aspect-ratio: 1;*/
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+        }
+
+        .zoomist-image {
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+        }
+
+        .zoomist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .zoomer-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: #efefef;
+        }
+
+        .zoomer-btn.zoomer-disabled {
+            opacity: 0.01;
+        }
+
+        .change-image-btn {
+            padding: 0.5rem;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="cat-zoomist zoomist-container">
+        <div class="zoomist-wrapper">
+            <div class="zoomist-image">
+                <img src="//filippovitale.it/ipv4-24-cidr-hilbert/img/test_4k.png" alt="cat"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/zoomist@2/zoomist.umd.js"></script>
+<script defer>
+    const zoomist = new Zoomist(".cat-zoomist", {
+        maxScale: 18,
+        slider: true,
+        zoomer: true,
+        smooth: true,
+    });
+</script>
+</body>
 </html>
