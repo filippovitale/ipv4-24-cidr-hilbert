@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add a raster tile source</title>
+    <meta property="og:description" content="Add a third-party raster source to the map." />
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@5.9.0/dist/maplibre-gl.css' />
+    <script src='https://unpkg.com/maplibre-gl@5.9.0/dist/maplibre-gl.js'></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        html, body, #map { height: 100%; }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    // const map = new maplibregl.Map({
+    //     container: 'map', // container id
+    //     style: {
+    //         'version': 8,
+    //         'sources': {
+    //             'raster-tiles': {
+    //                 'type': 'raster',
+    //                 'tiles': ['https://filippovitale.it/ipv4-24-cidr-hilbert/tiles/{z}/{x}/{y}.png'],
+    //                 'tileSize': 256,
+    //                 'minzoom': 13,
+    //                 'maxzoom': 17
+    //             }
+    //         },
+    //         'layers': [
+    //             {
+    //                 'id': 'simple-tiles',
+    //                 'type': 'raster',
+    //                 'source': 'raster-tiles',
+    //                 'attribution': "FilippoVitale.it",
+    //             }
+    //         ],
+    //         'id': 'blank'
+    //     },
+    //     center: [0, 0], // starting position
+    //     zoom: 0 // starting zoom
+    // });
+var map = new maplibregl.Map({
+    container: 'map', // container id
+    style: {
+        version: 8,
+        sources: {
+            'raster-tiles': {
+                type: 'raster',
+                tiles: ['./{z}/{x}/{y}.png'],
+                tileSize: 256,
+                scheme: 'tms' // TMS coordinate scheme
+            }
+        },
+        layers: [
+            {
+                id: 'simple-tiles',
+                type: 'raster',
+                source: 'raster-tiles',
+                minzoom: 13,
+                maxzoom: 17
+            }
+        ]
+    },
+    center: [0.0183974970187678, -0.018397495754205715], // [lng, lat] - note the order swap!
+    zoom: 17,
+    minZoom: 13,
+    maxZoom: 17
+});
+
+</script>
+</body>
+</html>
